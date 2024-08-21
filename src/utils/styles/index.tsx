@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const InputField = styled.input`
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
   outline: none;
   border: none;
   background-color: inherit;
@@ -32,12 +32,32 @@ export const Button = styled.button`
   width: 100%;
   outline: none;
   border: none;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   background-color: #2b09ff;
   color: #fff;
   border-radius: 10px;
   padding: 25px 0;
+  font-weight: 500;
+  transition:
+    250ms background-color ease,
+    250ms outline ease;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #3f20fd;
+    outline: 1px solid #fff;
+  }
+
+  &:hover {
+    background-color: #3f20fd;
+    outline: 1px solid #fff;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: #4e33f8;
+  }
 `;
 
 export const PageContainer = styled.div`

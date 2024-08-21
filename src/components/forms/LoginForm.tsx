@@ -8,7 +8,7 @@ import {
 import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
 
-export const RegisterForm: React.FC = () => {
+export const LoginForm: React.FC = () => {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
@@ -20,29 +20,17 @@ export const RegisterForm: React.FC = () => {
         <InputField id='email' type='email' />
       </InputContainer>
 
-      <section className={styles.nameFieldRow}>
-        <InputContainer>
-          <InputLabel htmlFor='firstName'>First Name</InputLabel>
-          <InputField id='firstName' type='text' />
-        </InputContainer>
-
-        <InputContainer>
-          <InputLabel htmlFor='lastName'>Last Name</InputLabel>
-          <InputField id='lastName' type='text' />
-        </InputContainer>
-      </section>
-
-      <InputContainer>
+      <InputContainer className={styles.loginFormPassword}>
         <InputLabel htmlFor='password'>Password</InputLabel>
         <InputField id='password' type='password' />
       </InputContainer>
 
-      <Button className={styles.button}>Create My Account</Button>
+      <Button className={styles.button}>Login</Button>
 
       <div className={styles.footerText}>
-        <span>Already have an account? </span>
-        <Link to={'/login'}>
-          <span>Login</span>
+        <span>Don&lsquo;t have an account? </span>
+        <Link to={'/register'}>
+          <span>Register</span>
         </Link>
       </div>
     </form>
