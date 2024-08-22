@@ -9,13 +9,19 @@ import {
 import { ConversationType } from '../../utils/types.ts';
 
 import styles from './index.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   conversations: ConversationType[];
 }
 
 export const ConversationSidebar: React.FC<Props> = ({ conversations }) => {
-  console.log('ConversationSidebar');
+  const navigate = useNavigate();
+
+  const onNavigateToConversation = (id: number) => {
+    navigate(`/conversation/${id}`);
+  };
+
   return (
     <ConversationSidebarStyle>
       <ConversationSidebarHeader>
@@ -24,7 +30,12 @@ export const ConversationSidebar: React.FC<Props> = ({ conversations }) => {
       </ConversationSidebarHeader>
       <ConversationSidebarContainer>
         {conversations.map((conversation) => (
-          <ConversationSidebarItem key={conversation.id}>
+          <ConversationSidebarItem
+            key={conversation.id}
+            onClick={() => {
+              onNavigateToConversation(conversation.id);
+            }}
+          >
             <div className={styles.conversationAvatar}></div>
             <div>
               <span className={styles.conversationName}>

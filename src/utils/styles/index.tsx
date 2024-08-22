@@ -80,11 +80,6 @@ export const ConversationSidebarStyle = styled.aside`
   width: ${SIDEBAR_WIDTH}px;
   background-color: #1a1a1a;
   border-right: 1px solid rgba(84, 84, 84, 0.5);
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export const ConversationSidebarHeader = styled.header`
@@ -109,13 +104,25 @@ export const ConversationChannelPageStyle = styled.div`
   margin-left: ${SIDEBAR_WIDTH}px;
 `;
 
-export const ConversationSidebarContainer = styled.div``;
+export const ConversationSidebarContainer = styled.div`
+  overflow-y: auto;
+  height: calc(100% - 100px); // Resta la altura del header
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+    background-color: #000;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 5px;
+`;
 
 export const ConversationSidebarItem = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
   padding: 18px 32px;
+  box-sizing: border-box;
   border-bottom: 1px solid rgba(84, 84, 84, 0.5);
   background-color: #131313;
 `;
