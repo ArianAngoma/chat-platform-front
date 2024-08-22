@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { TbEdit } from 'react-icons/tb';
 
 import {
@@ -9,7 +10,6 @@ import {
 import { ConversationType } from '../../utils/types.ts';
 
 import styles from './index.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   conversations: ConversationType[];
