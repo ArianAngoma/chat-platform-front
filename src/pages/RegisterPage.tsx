@@ -3,7 +3,11 @@ import { PageContainer } from '../utils/styles';
 
 export const RegisterPage: React.FC = () => {
   return (
-    <PageContainer>
+    <PageContainer
+      $display='flex'
+      $justifyContent='center'
+      $alignItems='center'
+    >
       <RegisterForm />
     </PageContainer>
   );

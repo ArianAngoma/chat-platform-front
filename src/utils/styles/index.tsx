@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+import { PageContainerProps } from './styleTypes.ts';
+
+export const SIDEBAR_WIDTH = 400;
+
 export const InputField = styled.input`
   font-family: 'Roboto', sans-serif;
   outline: none;
@@ -60,10 +64,39 @@ export const Button = styled.button`
   }
 `;
 
-export const PageContainer = styled.div`
+export const PageContainer = styled.div<PageContainerProps>`
   background-color: #1a1a1a;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: ${({ $display }) => $display};
+  justify-content: ${({ $justifyContent }) => $justifyContent};
+  align-items: ${({ $alignItems }) => $alignItems};
+`;
+
+export const ConversationSidebarStyle = styled.aside`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: ${SIDEBAR_WIDTH}px;
+  background-color: #1a1a1a;
+  border-right: 1px solid rgba(84, 84, 84, 0.5);
+
+  & header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    background-color: #151515;
+    height: 100px;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.5);
+
+    & h1 {
+      font-weight: 400;
+    }
+  }
+`;
+
+export const ConversationChannelPageStyle = styled.div`
+  height: 100%;
+  margin-left: ${SIDEBAR_WIDTH}px;
 `;

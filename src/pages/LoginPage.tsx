@@ -3,7 +3,11 @@ import { LoginForm } from '../components/forms/LoginForm.tsx';
 
 export const LoginPage: React.FC = () => {
   return (
-    <PageContainer>
+    <PageContainer
+      $display='flex'
+      $justifyContent='center'
+      $alignItems='center'
+    >
       <LoginForm />
     </PageContainer>
   );
