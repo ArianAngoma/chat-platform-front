@@ -10,14 +10,11 @@ import {
   InputLabel,
 } from '../../utils/styles';
 
-import styles from './index.module.scss';
+import { postRegisterUser } from '../../utils/api.ts';
 
-export interface RegisterFormData {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-}
+import { RegisterFormData } from '../../types/auth.ts';
+
+import styles from './index.module.scss';
 
 export const RegisterFormSchema: ZodType<RegisterFormData> = z.object({
   email: z
@@ -31,13 +28,23 @@ export const RegisterFormSchema: ZodType<RegisterFormData> = z.object({
 });
 
 export const RegisterForm: React.FC = () => {
-  const { register, handleSubmit, formState } = useForm<RegisterFormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterFormSchema),
   });
 
-  console.log(formState);
-  const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
-    console.log(data);
+  console.log({ errors });
+
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
+    console.log({ data });
+    try {
+      await postRegisterUser(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -52,7 +59,7 @@ export const RegisterForm: React.FC = () => {
         <InputContainer>
           <InputLabel htmlFor='firstName'>First Name</InputLabel>
           <InputField id='firstName' type='text' {...register('firstName')} />
-          {/*{errors.firstName && <span>{errors.firstName.message}</span>}*/}
+          {errors.firstName && <span>{errors.firstName.message}</span>}
         </InputContainer>
 
         <InputContainer>
@@ -68,7 +75,9 @@ export const RegisterForm: React.FC = () => {
         {/*{errors.password && <span>{errors.password.message}</span>}*/}
       </InputContainer>
 
-      <Button className={styles.button}>Create My Account</Button>
+      <Button type='submit' className={styles.button}>
+        Create My Account
+      </Button>
 
       <div className={styles.footerText}>
         <span>Already have an account? </span>

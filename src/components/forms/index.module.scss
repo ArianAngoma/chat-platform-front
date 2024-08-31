@@ -11,12 +11,13 @@
 }
 
 .footerText {
+  margin: 10px 0;
+  text-align: center;
+
   & :last-child {
     text-decoration: underline;
     color: #8e8ec8;
   }
-  margin: 10px 0;
-  text-align: center ;
 }
 
 .button {

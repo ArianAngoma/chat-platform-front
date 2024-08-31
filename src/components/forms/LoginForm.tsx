@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z, ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { setCredentials } from '../../store/auth.ts';
 
 import {
   Button,
@@ -10,12 +12,13 @@ import {
   InputLabel,
 } from '../../utils/styles';
 
-import styles from './index.module.scss';
+import { useAppDispatch } from '../../hooks/store.ts';
 
-export interface LoginFormData {
-  email: string;
-  password: string;
-}
+import { postLoginUser } from '../../utils/api.ts';
+
+import { LoginFormData } from '../../types/auth.ts';
+
+import styles from './index.module.scss';
 
 export const LoginFormSchema: ZodType<LoginFormData> = z.object({
   email: z
@@ -25,13 +28,37 @@ export const LoginFormSchema: ZodType<LoginFormData> = z.object({
 });
 
 export const LoginForm: React.FC = () => {
-  const { register, handleSubmit, formState } = useForm<LoginFormData>({
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
     resolver: zodResolver(LoginFormSchema),
   });
 
-  console.log(formState);
-  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
-    console.log(data);
+  console.log(errors);
+
+  const onSubmit: SubmitHandler<LoginFormData> = async (formData) => {
+    try {
+      const { data } = await postLoginUser(formData);
+      dispatch(
+        setCredentials({
+          user: data.user,
+          tokens: data.tokens,
+        })
+      );
+
+      const from =
+        (location.state as { from: Location }).from.pathname || '/conversation';
+
+      navigate(from);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
